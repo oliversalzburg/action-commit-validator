@@ -1,6 +1,10 @@
 name: Commit Validator
 description: Ensures the commits in a PR follow common rules.
 author: Oliver Salzburg
+branding:
+  color: green
+  icon: umbrella
+
 inputs:
   accept_breaking_changes:
     default: "true"
@@ -36,4 +40,4 @@ inputs:
     required: false
 runs:
   using: node20
-  main: build/main.js
+  main: lib/main.js
