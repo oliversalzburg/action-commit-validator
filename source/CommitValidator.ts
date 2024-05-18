@@ -6,12 +6,12 @@ import { CommitsSchema } from "./CommitsSchema.js";
 
 type CommitsResponse = FromSchema<typeof CommitsSchema>;
 
-export type CommitValidatorOptions = {
+export interface CommitValidatorOptions {
   context: Context;
   core: typeof core;
   octokit: InstanceType<typeof GitHub>;
   pr: number;
-};
+}
 
 export class CommitValidator {
   #options: CommitValidatorOptions;
@@ -53,15 +53,15 @@ export class CommitValidator {
 
       const messageParts = parseCommitMessage.exec(commitInfo.commit.message);
       let type, scope, breaking, message;
-      if (messageParts === null || messageParts.groups === undefined) {
+      if (messageParts?.groups === undefined) {
         core.warning(`Unable to parse commit message: '${commitInfo.commit.message}'`);
 
         message = commitInfo.commit.message;
       } else {
-        type = messageParts?.groups?.type;
-        scope = messageParts?.groups?.scope;
-        breaking = messageParts?.groups?.breaking;
-        message = messageParts?.groups?.message;
+        type = messageParts.groups.type;
+        scope = messageParts.groups.scope;
+        breaking = messageParts.groups.breaking;
+        message = messageParts.groups.message;
       }
 
       core.debug(JSON.stringify({ type, scope, breaking, message }));
