@@ -40,6 +40,8 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## Inputs
+
 ## Release Process
 
 ```shell
