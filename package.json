@@ -3,6 +3,7 @@
   "private": true,
   "name": "@oliversalzburg/action-commit-validator",
   "version": "0.0.5",
+  "description": "Validate git commit messages against your rules.",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",
