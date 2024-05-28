@@ -112,7 +112,9 @@ export class CommitValidator {
       Please note that this repository is using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to track development. All commits in your pull request need to:
       
       1. Have a _type_ that conforms to: ${acceptedTypes.join(",")}
-      1. Have a _scope_ that conforms to: ${acceptedScopes.join(",")}`);
+      1. Have a _scope_ that conforms to: ${acceptedScopes.join(",")}
+      1. Breaking changes, indicated by a \`!\` in the commit message, are ${acceptBreakingChanges ? "" : "NOT "}allowed.
+      1. Emoji are ${emojiAllowed ? "" : "NOT "}allowed.`);
     }
   }
 }
