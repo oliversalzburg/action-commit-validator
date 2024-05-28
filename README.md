@@ -1,6 +1,6 @@
 # Commit Validator Action
 
-Validate commit messages against semantic commit expectations.
+Validate commit messages against [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) expectations.
 
 ## Usage
 
