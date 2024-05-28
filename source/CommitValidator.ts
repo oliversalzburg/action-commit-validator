@@ -107,7 +107,12 @@ export class CommitValidator {
     }
 
     if (failed) {
-      core.setFailed("Some commits did not pass validation.");
+      core.setFailed(`Some commits did not pass validation.
+      
+      Please note that this repository is using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to track development. All commits in your pull request need to:
+      
+      1. Have a _type_ that conforms to: ${acceptedTypes.join(",")}
+      1. Have a _scope_ that conforms to: ${acceptedScopes.join(",")}`);
     }
   }
 }
