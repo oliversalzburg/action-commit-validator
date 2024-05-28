@@ -54,7 +54,7 @@ export class CommitValidator {
       const messageParts = parseCommitMessage.exec(commitInfo.commit.message);
       let type, scope, breaking, message;
       if (messageParts?.groups === undefined) {
-        core.warning(`Unable to parse commit message: '${commitInfo.commit.message}'`);
+        core.warning(`  Unable to parse commit message: '${commitInfo.commit.message}'`);
 
         message = commitInfo.commit.message;
       } else {
@@ -67,29 +67,35 @@ export class CommitValidator {
       core.debug(JSON.stringify({ type, scope, breaking, message }));
 
       if (requireConventional && !type) {
-        core.setFailed("Missing type.");
+        core.setFailed("  Missing type.");
+        continue;
       }
 
       if (type && !acceptedTypes.includes(type)) {
-        core.setFailed(`Type '${type}' is not acceptable. Accepted: ${acceptedTypes.join(", ")}`);
+        core.setFailed(`  Type '${type}' is not acceptable. Accepted: ${acceptedTypes.join(", ")}`);
+        continue;
       }
 
       if (requireScope && !scope) {
-        core.setFailed("Missing scope.");
+        core.setFailed("  Missing scope.");
+        continue;
       }
 
       if (!acceptBreakingChanges && breaking) {
-        core.setFailed("Breaking changes are not accepted.");
+        core.setFailed("  Breaking changes are not accepted.");
+        continue;
       }
 
       if (scope && !anyScopeAccepted && !acceptedScopes.includes(scope)) {
         core.setFailed(
-          `Scope '${scope}' is not acceptable. Accepted: ${acceptedScopes.join(", ")}`,
+          `  Scope '${scope}' is not acceptable. Accepted: ${acceptedScopes.join(", ")}`,
         );
+        continue;
       }
 
       if (!emojiAllowed && hasEmoji.test(message)) {
-        core.setFailed("Emoji are not accepted.");
+        core.setFailed("  Emoji are not accepted.");
+        continue;
       }
     }
   }
