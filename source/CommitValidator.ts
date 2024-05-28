@@ -48,13 +48,14 @@ export class CommitValidator {
       /^(?<type>[a-z]+)(?:\((?<scope>[\w-]+)\))?(?<breaking>!)?: (?<message>[^\n]+)$/m;
     const hasEmoji = /\p{Extended_Pictographic}/u;
 
+    let failed = false;
     for (const commitInfo of commits) {
       core.info(`Analyzing commit ${commitInfo.sha} with message: '${commitInfo.commit.message}'`);
 
       const messageParts = parseCommitMessage.exec(commitInfo.commit.message);
       let type, scope, breaking, message;
       if (messageParts?.groups === undefined) {
-        core.warning(`  Unable to parse commit message: '${commitInfo.commit.message}'`);
+        console.warn(`  Unable to parse commit message: '${commitInfo.commit.message}'`);
 
         message = commitInfo.commit.message;
       } else {
@@ -67,36 +68,46 @@ export class CommitValidator {
       core.debug(JSON.stringify({ type, scope, breaking, message }));
 
       if (requireConventional && !type) {
-        core.setFailed("  Missing type.");
+        console.error("  Missing type.");
+        failed = true;
         continue;
       }
 
       if (type && !acceptedTypes.includes(type)) {
-        core.setFailed(`  Type '${type}' is not acceptable. Accepted: ${acceptedTypes.join(", ")}`);
+        console.error(`  Type '${type}' is not acceptable. Accepted: ${acceptedTypes.join(", ")}`);
+        failed = true;
         continue;
       }
 
       if (requireScope && !scope) {
-        core.setFailed("  Missing scope.");
+        console.error("  Missing scope.");
+        failed = true;
         continue;
       }
 
       if (!acceptBreakingChanges && breaking) {
-        core.setFailed("  Breaking changes are not accepted.");
+        console.error("  Breaking changes are not accepted.");
+        failed = true;
         continue;
       }
 
       if (scope && !anyScopeAccepted && !acceptedScopes.includes(scope)) {
-        core.setFailed(
+        console.error(
           `  Scope '${scope}' is not acceptable. Accepted: ${acceptedScopes.join(", ")}`,
         );
+        failed = true;
         continue;
       }
 
       if (!emojiAllowed && hasEmoji.test(message)) {
-        core.setFailed("  Emoji are not accepted.");
+        console.error("  Emoji are not accepted.");
+        failed = true;
         continue;
       }
+    }
+
+    if (failed) {
+      core.setFailed("Some commits did not pass validation.");
     }
   }
 }
