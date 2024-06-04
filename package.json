@@ -28,7 +28,7 @@
     "@actions/github": "5.1.1",
     "@oliversalzburg/js-utils": "0.0.46",
     "json-schema-to-ts": "3.1.0",
-    "tslib": "2.6.2"
+    "tslib": "2.6.3"
   },
   "devDependencies": {
     "@eslint/js": "9.4.0",
