@@ -6,20 +6,48 @@ import { CommitsSchema } from "./CommitsSchema.js";
 
 type CommitsResponse = FromSchema<typeof CommitsSchema>;
 
+/**
+ * The options for the action.
+ */
 export interface CommitValidatorOptions {
+  /**
+   * The Context we're executing in.
+   */
   context: Context;
+
+  /**
+   * A GitHub Actions Code instance.
+   */
   core: typeof core;
+
+  /**
+   * An OctoKit instance to use to communicate with GitHub.
+   */
   octokit: InstanceType<typeof GitHub>;
+
+  /**
+   * The number of the PR that triggered the action.
+   */
   pr: number;
 }
 
+/**
+ * Main implementation of the action.
+ */
 export class CommitValidator {
   #options: CommitValidatorOptions;
 
+  /**
+   * Constructs a new CommitValidator instance.
+   * @param options - The options for the action.
+   */
   constructor(options: CommitValidatorOptions) {
     this.#options = options;
   }
 
+  /**
+   * Execute the action.
+   */
   async main() {
     const { context, core, octokit } = this.#options;
 
@@ -55,7 +83,7 @@ export class CommitValidator {
       const messageParts = parseCommitMessage.exec(commitInfo.commit.message);
       let type, scope, breaking, message;
       if (messageParts?.groups === undefined) {
-        console.warn(`  Unable to parse commit message: '${commitInfo.commit.message}'`);
+        process.stderr.write(`  Unable to parse commit message: '${commitInfo.commit.message}'\n`);
 
         message = commitInfo.commit.message;
       } else {
@@ -68,39 +96,41 @@ export class CommitValidator {
       core.debug(JSON.stringify({ type, scope, breaking, message }));
 
       if (requireConventional && !type) {
-        console.error("  Missing type.");
+        process.stderr.write("  Missing type.\n");
         failed = true;
         continue;
       }
 
       if (type && !acceptedTypes.includes(type)) {
-        console.error(`  Type '${type}' is not acceptable. Accepted: ${acceptedTypes.join(", ")}`);
+        process.stderr.write(
+          `  Type '${type}' is not acceptable. Accepted: ${acceptedTypes.join(", ")}\n`,
+        );
         failed = true;
         continue;
       }
 
       if (requireScope && !scope) {
-        console.error("  Missing scope.");
+        process.stderr.write("  Missing scope.\n");
         failed = true;
         continue;
       }
 
       if (!acceptBreakingChanges && breaking) {
-        console.error("  Breaking changes are not accepted.");
+        process.stderr.write("  Breaking changes are not accepted.\n");
         failed = true;
         continue;
       }
 
       if (scope && !anyScopeAccepted && !acceptedScopes.includes(scope)) {
-        console.error(
-          `  Scope '${scope}' is not acceptable. Accepted: ${acceptedScopes.join(", ")}`,
+        process.stderr.write(
+          `  Scope '${scope}' is not acceptable. Accepted: ${acceptedScopes.join(", ")}\n`,
         );
         failed = true;
         continue;
       }
 
       if (!emojiAllowed && hasEmoji.test(message)) {
-        console.error("  Emoji are not accepted.");
+        process.stderr.write("  Emoji are not accepted.\n");
         failed = true;
         continue;
       }
