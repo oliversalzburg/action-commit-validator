@@ -1,8 +1,8 @@
-import core from "@actions/core";
+import type core from "@actions/core";
 import { Context } from "@actions/github/lib/context.js";
 import { type GitHub } from "@actions/github/lib/utils.js";
 import { FromSchema } from "json-schema-to-ts";
-import { CommitsSchema } from "./CommitsSchema.js";
+import { type CommitsSchema } from "./CommitsSchema.js";
 
 type CommitsResponse = FromSchema<typeof CommitsSchema>;
 
