@@ -1,6 +1,6 @@
 import core from "@actions/core";
 import github from "@actions/github";
-import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/errors/console.js";
 import { CommitValidator } from "./CommitValidator.js";
 
 const isMainModule = import.meta.url.endsWith(process.argv[1]);
