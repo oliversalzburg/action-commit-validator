@@ -30,7 +30,7 @@ it("runs", async () => {
   const commitValidator = new CommitValidator({
     context,
     core,
-    octokit: getOctokit("invalid-token"),
+    octokit: getOctokit("invalid-token", { request: { fetch } }),
     pr: 123,
   });
 
