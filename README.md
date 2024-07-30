@@ -1,5 +1,7 @@
 # Commit Validator Action
 
+[![Pre-Release](https://github.com/oliversalzburg/action-commit-validator/actions/workflows/pre-release.yml/badge.svg)](https://github.com/oliversalzburg/action-commit-validator/actions/workflows/pre-release.yml)
+
 Validate commit messages against [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) expectations.
 
 ## Usage
