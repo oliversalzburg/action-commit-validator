@@ -19,11 +19,11 @@ export const main = async (): Promise<void> => {
       throw new Error("Unable to determine PR number!");
     }
 
-    const repo_token = core.getInput("repo_token", { required: true });
+    const token = core.getInput("repo-token", { required: true });
     const commitValidator = new CommitValidator({
       core,
       context: github.context,
-      octokit: github.getOctokit(repo_token),
+      octokit: github.getOctokit(token),
       pr: Number.parseInt(prNumber),
     });
 

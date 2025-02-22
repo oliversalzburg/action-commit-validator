@@ -58,19 +58,19 @@ export class CommitValidator {
     });
     const commits = unsafeResponse.data as CommitsResponse;
 
-    const acceptBreakingChanges = core.getBooleanInput("accept_breaking_changes", {
+    const acceptBreakingChanges = core.getBooleanInput("accept-breaking-changes", {
       required: false,
     });
     const acceptedScopes = core
-      .getMultilineInput("accepted_scopes", { required: false })
+      .getMultilineInput("accepted-scopes", { required: false })
       .filter(line => line !== "");
     const anyScopeAccepted = acceptedScopes.length === 0;
     const acceptedTypes = core
-      .getMultilineInput("accepted_types", { required: false })
+      .getMultilineInput("accepted-types", { required: false })
       .filter(line => line !== "");
-    const emojiAllowed = core.getBooleanInput("accept_emoji", { required: false });
-    const requireConventional = core.getBooleanInput("require_conventional", { required: false });
-    const requireScope = core.getBooleanInput("require_scope", { required: false });
+    const emojiAllowed = core.getBooleanInput("accept-emoji", { required: false });
+    const requireConventional = core.getBooleanInput("require-conventional", { required: false });
+    const requireScope = core.getBooleanInput("require-scope", { required: false });
 
     const parseCommitMessage =
       /^(?<type>[a-z]+)(?:\((?<scope>[\w-]+)\))?(?<breaking>!)?: (?<message>[^\n]+)$/m;

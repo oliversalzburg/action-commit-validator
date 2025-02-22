@@ -6,10 +6,10 @@ import { CommitValidator } from "./CommitValidator.js";
 
 beforeEach(() => {
   process.env.GITHUB_REPOSITORY = "kitten-science/test";
-  process.env.INPUT_ACCEPT_BREAKING_CHANGES = "false";
-  process.env.INPUT_ACCEPT_EMOJI = "false";
-  process.env.INPUT_REQUIRE_CONVENTIONAL = "false";
-  process.env.INPUT_REQUIRE_SCOPE = "false";
+  process.env["INPUT_ACCEPT-BREAKING-CHANGES"] = "false";
+  process.env["INPUT_ACCEPT-EMOJI"] = "false";
+  process.env["INPUT_REQUIRE-CONVENTIONAL"] = "false";
+  process.env["INPUT_REQUIRE-SCOPE"] = "false";
 });
 
 it("runs", async () => {

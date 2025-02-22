@@ -6,35 +6,35 @@ branding:
   icon: umbrella
 
 inputs:
-  accept_breaking_changes:
+  accept-breaking-changes:
     default: "true"
     description: Is the breaking change indicator (`!`) allowed?
     required: false
-  accept_emoji:
+  accept-emoji:
     default: "true"
     description: Are emoji allowed?
     required: false
-  accepted_scopes:
+  accepted-scopes:
     default: ""
     description: |
       Only accept these scopes. Provide as multi-line string, each type on it's own line.
 
       By default, all scopes are accepted.
     required: false
-  accepted_types:
+  accepted-types:
     default: |
       feat
       fix
     description: Only accept these type prefixes. Provide as multi-line string, each type on it's own line.
     required: false
-  repo_token:
+  repo-token:
     description: Needs `secrets.GITHUB_TOKEN` to talk to the API.
     required: true
-  require_conventional:
+  require-conventional:
     default: "true"
     description: Require all commits to follow the Conventional Commits specification
     required: false
-  require_scope:
+  require-scope:
     default: "false"
     description: Require all commits to specify a scope.
     required: false
