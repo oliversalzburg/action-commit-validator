@@ -21,8 +21,8 @@ export const main = async (): Promise<void> => {
 
     const token = core.getInput("repo-token", { required: true });
     const commitValidator = new CommitValidator({
-      core,
       context: github.context,
+      core,
       octokit: github.getOctokit(token),
       pr: Number.parseInt(prNumber),
     });
