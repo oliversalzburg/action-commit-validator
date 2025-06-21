@@ -53,8 +53,8 @@ export class CommitValidator {
 
     const unsafeResponse = await octokit.rest.pulls.listCommits({
       owner: context.repo.owner,
-      repo: context.repo.repo,
       pull_number: this.#options.pr,
+      repo: context.repo.repo,
     });
     const commits = unsafeResponse.data as CommitsResponse;
 
@@ -93,7 +93,7 @@ export class CommitValidator {
         message = messageParts.groups.message;
       }
 
-      core.debug(JSON.stringify({ type, scope, breaking, message }));
+      core.debug(JSON.stringify({ breaking, message, scope, type }));
 
       if (requireConventional && !type) {
         process.stderr.write("  Missing type.\n");

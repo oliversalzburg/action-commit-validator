@@ -16,15 +16,15 @@ it("runs", async () => {
   const moctokit = new Moctokit();
 
   moctokit.rest.pulls.listCommits().reply({
-    status: 200,
     data: [
       {
-        sha: "invalid-sha",
         commit: {
           message: "lul",
         },
+        sha: "invalid-sha",
       },
     ],
+    status: 200,
   });
 
   const commitValidator = new CommitValidator({
