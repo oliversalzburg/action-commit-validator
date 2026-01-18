@@ -1,4 +1,4 @@
-.PHONY: default build clean check-updates docs git-hook pretty lint test run
+.PHONY: default build check-updates clean docs git-hook pretty lint test run
 
 default: build
 
