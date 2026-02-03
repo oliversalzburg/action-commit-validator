@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import github from "@actions/github";
+import * as github from "@actions/github";
 import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/errors/console.js";
 import { CommitValidator } from "./CommitValidator.js";
 
