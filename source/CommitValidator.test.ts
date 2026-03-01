@@ -1,7 +1,7 @@
+import { beforeEach, it } from "node:test";
 import * as core from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { Moctokit } from "@kie/mock-github";
-import { beforeEach, it } from "mocha";
 import { CommitValidator } from "./CommitValidator.js";
 
 beforeEach(() => {
